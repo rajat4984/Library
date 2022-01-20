@@ -20,55 +20,23 @@
         <h1>Add books</h1>
         <form action="">
           <label for="title">Title</label><br />
-          <input class="title-input" name="title" type="text" />
+          <input class="title-input" name="title" type="text" required />
           <br /><label for="author">Author</label><br />
-          <input class="author-input" type="text" />
+          <input class="author-input" type="text"  required/>
           <br /><label for="pages">Pages</label><br />
-          <input class="page-input" name="pages" type="text" />
+          <input class="page-input" name="pages" type="text" required />
 
-          <br /><input name="isRead" class="read-input" type="checkbox" />
+          <br /><input required name="isRead" class="read-input" type="checkbox"  />
           <label for="isRead">Book completed</label>
+          <div class="button">
+            <button type="submit"  class="add-book">Submit</button>
+          </div>
         </form>
-        <div class="button">
-          <button class="add-book">Add</button>
-        </div>
+       
       </div>
       <div class="display-section">
         <h1>Library</h1>
-        <div class="card-group">
-          <div class="card">
-            <div class="card-body">
-              <h2 class = "book-title">Champak</h2>
-              <h3 class="book-author">author</h3>
-              <p class="pages">pages:345</p>
-            </div>
-            <button class="delete-btn">Delete</button>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h2 class = "book-title">Title</h2>
-              <h3 class="book-author">author</h3>
-              <p class="pages">pages:345</p>
-            </div>
-            <button class="delete-btn">Delete</button>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h2 class = "book-title">Title</h2>
-              <h3 class="book-author">author</h3>
-              <p class="pages">pages:345</p>
-            </div>
-            <button class="delete-btn">Delete</button>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h2 class = "book-title">Title</h2>
-              <h3 class="book-author">author</h3>
-              <p class="pages">pages:345</p>
-            </div>
-            <button class="delete-btn">Delete</button>
-          </div>
-        </div>
+        <div class="card-group"></div>
       </div>
     </div>
   </body>
