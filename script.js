@@ -4,10 +4,9 @@ const pageInput = document.querySelector(".page-input");
 const readInput = document.querySelector(".read-input");
 const addBtn = document.querySelector(".add-book");
 const cardGroup = document.querySelector(".card-group");
-const deleteBtn = document.querySelector(".delete-btn");
+var deleteBtn;
 const readBtn = document.querySelector(".read-input");
-
-// console.log(readBtn.checked);
+var isReadBtn;
 
 let library = [];
 function Books(title, author, pages, isRead) {
@@ -33,13 +32,16 @@ addBookToLibrary(b4);
 // ------------------ NORMAL FUNCTIONS ----------------------------
 
 const makeNewCard = (newTitle, newAuthor, newPages, isRead) => {
+  //CREATING THE CARD
   const card = document.createElement("div");
   const cardBody = document.createElement("div");
   const bookTitle = document.createElement("h2");
   const bookAuthor = document.createElement("h3");
   const pages = document.createElement("p");
   const newDeleteBtn = document.createElement("button");
+  const isReadIcon = document.createElement("i");
 
+  // ADDING CLASSES TO THE NEW CARD
   card.classList.add("card");
   cardBody.classList.add("card-body");
   bookTitle.classList.add("book-title");
@@ -47,31 +49,33 @@ const makeNewCard = (newTitle, newAuthor, newPages, isRead) => {
   pages.classList.add("pages");
   newDeleteBtn.classList.add("delete-btn");
 
+  //ADDING TEXT IN NEW CARD
   bookTitle.textContent = newTitle;
   bookAuthor.textContent = newAuthor;
   pages.textContent = `Pages: ${newPages}`;
   newDeleteBtn.textContent = "Delete";
 
-  cardGroup.insertAdjacentElement("afterbegin",card);
+  //APPENDING NEW CARD IN THE DOM
+  cardGroup.insertAdjacentElement("afterbegin", card);
   card.appendChild(cardBody);
   cardBody.appendChild(bookTitle);
   cardBody.appendChild(bookAuthor);
   cardBody.appendChild(pages);
   cardBody.appendChild(newDeleteBtn);
 
+  deleteBtn = document.querySelectorAll(".delete-btn"); //selecting delete buttons for event lsitener
+
+  // giving style and apeening readicon
+  isReadIcon.style.float = "right";
   if (isRead == true) {
-    const isReadIcon = document.createElement("i")
-    isReadIcon.classList.add("fas" ,"fa-check-circle")
-    isReadIcon.style.float = "right"
+    isReadIcon.classList.add("fas", "fa-check-circle");
     isReadIcon.style.color = "#74B72E";
-    card.append(isReadIcon)
   } else {
-    const isReadIcon = document.createElement("i")
-    isReadIcon.classList.add("fas", "fa-times-circle")
-    isReadIcon.style.float = "right"
+    isReadIcon.classList.add("fas", "fa-times-circle");
     isReadIcon.style.color = "rgb(161, 60, 60)";
-    card.append(isReadIcon)
+    card.append(isReadIcon);
   }
+  card.append(isReadIcon);
 };
 
 const display = () => {
@@ -79,7 +83,6 @@ const display = () => {
     makeNewCard(item["title"], item["author"], item["pages"], item["isRead"]);
   });
 };
-
 
 // -----------------------EVENT LISTENER FUNCTIONS ---------------------------------
 const handleAddBtn = (e) => {
@@ -92,11 +95,25 @@ const handleAddBtn = (e) => {
     readBtn.checked
   );
   library.push(newBook);
-  makeNewCard(newBook["title"], newBook["author"], newBook["pages"],newBook["isRead"]);
+  makeNewCard(
+    newBook["title"],
+    newBook["author"],
+    newBook["pages"],
+    newBook["isRead"]
+  );
 };
 
-// -------------------EVENT LISTENERS-----------------------
-addBtn.addEventListener("click", handleAddBtn);
+const handleDeletebtn = (e) => {
+  e.target.parentElement.parentElement.remove();
+};
 
 // -------------------FUNCTION CALLS------------------------------
 display();
+
+// -------------------EVENT LISTENERS-----------------------
+addBtn.addEventListener("click", handleAddBtn);
+deleteBtn.forEach((button) => {
+  button.addEventListener("click", handleDeletebtn);
+});
+
+// deleteBtn.addEventListener("click",handleDeletebtn);
