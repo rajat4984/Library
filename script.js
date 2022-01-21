@@ -103,33 +103,36 @@ const handleAddBtn = (e) => {
     newBook["pages"],
     newBook["isRead"]
   );
+  addListeners();
 };
 
 const handleDeletebtn = (e) => {
   e.target.parentElement.parentElement.remove();
 };
 
-const handleReadBtn = (e) =>{
-  if(e.target.classList.contains("fa-check-circle")){
-    e.target.classList.remove("fa-check-circle")
-    e.target.classList.add("fa-times-circle")
-    e.target.style.color = "rgb(161, 60, 60)"
+const handleReadBtn = (e) => {
+  if (e.target.classList.contains("fa-check-circle")) {
+    e.target.classList.remove("fa-check-circle");
+    e.target.classList.add("fa-times-circle");
+    e.target.style.color = "rgb(161, 60, 60)";
+  } else {
+    e.target.classList.remove("fa-times-circle");
+    e.target.classList.add("fa-check-circle");
+    e.target.style.color = "#74B72E";
   }
-  else{
-    e.target.classList.remove("fa-times-circle")
-    e.target.classList.add("fa-check-circle")
-    e.target.style.color = "#74B72E"
-  }
-}
+};
 
 // -------------------FUNCTION CALLS------------------------------
 display();
+addListeners();
 
 // -------------------EVENT LISTENERS-----------------------
 addBtn.addEventListener("click", handleAddBtn);
-deleteBtn.forEach((button) => {
-  button.addEventListener("click", handleDeletebtn);
-});
-isReadBtn.forEach((button) => {
-  button.addEventListener("click", handleReadBtn);
-});
+function addListeners() {
+  deleteBtn.forEach((button) => {
+    button.addEventListener("click", handleDeletebtn);
+  });
+  isReadBtn.forEach((button) => {
+    button.addEventListener("click", handleReadBtn);
+  });
+}
