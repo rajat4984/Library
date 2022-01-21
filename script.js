@@ -5,7 +5,6 @@ const readInput = document.querySelector(".read-input");
 const addBtn = document.querySelector(".add-book");
 const cardGroup = document.querySelector(".card-group");
 var deleteBtn;
-const readBtn = document.querySelector(".read-input");
 var isReadBtn;
 
 let library = [];
@@ -65,8 +64,10 @@ const makeNewCard = (newTitle, newAuthor, newPages, isRead) => {
 
   deleteBtn = document.querySelectorAll(".delete-btn"); //selecting delete buttons for event lsitener
 
-  // giving style and apeening readicon
+  // giving style and apedning readicon
   isReadIcon.style.float = "right";
+  isReadIcon.style.cursor = "pointer";
+  isReadIcon.classList.add("read-icon");
   if (isRead == true) {
     isReadIcon.classList.add("fas", "fa-check-circle");
     isReadIcon.style.color = "#74B72E";
@@ -76,6 +77,7 @@ const makeNewCard = (newTitle, newAuthor, newPages, isRead) => {
     card.append(isReadIcon);
   }
   card.append(isReadIcon);
+  isReadBtn = document.querySelectorAll(".read-icon");
 };
 
 const display = () => {
@@ -92,9 +94,9 @@ const handleAddBtn = (e) => {
     titleInput.value,
     authorInput.value,
     pageInput.value,
-    readBtn.checked
+    readInput.checked
   );
-  library.push(newBook);
+  addBookToLibrary(newBook);
   makeNewCard(
     newBook["title"],
     newBook["author"],
@@ -107,6 +109,19 @@ const handleDeletebtn = (e) => {
   e.target.parentElement.parentElement.remove();
 };
 
+const handleReadBtn = (e) =>{
+  if(e.target.classList.contains("fa-check-circle")){
+    e.target.classList.remove("fa-check-circle")
+    e.target.classList.add("fa-times-circle")
+    e.target.style.color = "rgb(161, 60, 60)"
+  }
+  else{
+    e.target.classList.remove("fa-times-circle")
+    e.target.classList.add("fa-check-circle")
+    e.target.style.color = "#74B72E"
+  }
+}
+
 // -------------------FUNCTION CALLS------------------------------
 display();
 
@@ -115,5 +130,6 @@ addBtn.addEventListener("click", handleAddBtn);
 deleteBtn.forEach((button) => {
   button.addEventListener("click", handleDeletebtn);
 });
-
-// deleteBtn.addEventListener("click",handleDeletebtn);
+isReadBtn.forEach((button) => {
+  button.addEventListener("click", handleReadBtn);
+});
